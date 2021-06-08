@@ -18,7 +18,12 @@ db = DataSource()
 
 @app.route('/')
 def homePage():
-    return render_template('homePage.html', states=db.getListOfStates())
+    try:
+        state = db.getListOfStates()
+    except (AttributeError, MySQLdb.OperationalError):
+        db.__init__()
+        state = db.getListOfStates()
+    return render_template('homePage.html', states=state)
 
 @app.route('/about')
 def aboutPage():
@@ -45,10 +50,10 @@ def results():
                                rep_percent=round(rep_share * 100, 2),
                                third_percent=round(third_share * 100, 2),
                                other_percent=round(other_share * 100, 2),
-                               dem_votes=int(dem_share * float(votes)),
-                               rep_votes=int(rep_share * float(votes)),
-                               third_votes=int(third_share * float(votes)),
-                               other_votes=int(other_share * float(votes))
+                               dem_votes=int(float(dem_share) * float(votes)),
+                               rep_votes=int(float(rep_share) * float(votes)),
+                               third_votes=int(float(third_share) * float(votes)),
+                               other_votes=int(float(other_share) * float(votes))
                                )
 
 @app.route("/outcome", methods=["GET", "POST"])
@@ -75,10 +80,10 @@ def search(state):
                            rep_percent=round(rep_share * 100, 2),
                            third_percent=round(third_share * 100, 2),
                            other_percent=round(other_share * 100, 2),
-                           dem_votes=int(dem_share * float(votes)),
-                           rep_votes=int(rep_share * float(votes)),
-                           third_votes=int(third_share * float(votes)),
-                           other_votes=int(other_share * float(votes)),
+                           dem_votes=int(float(dem_share) * float(votes)),
+                           rep_votes=int(float(rep_share) * float(votes)),
+                           third_votes=int(float(third_share) * float(votes)),
+                           other_votes=int(float(other_share) * float(votes)),
                            counties=county_list
                            )
 
@@ -108,10 +113,3 @@ def search_county(rawstate, rawcounty):
                            counties=county_list
                            )
 
-
-if __name__ == '__main__':
-    if len(sys.argv) != 3:
-        print('Usage: {0} host port'.format(sys.argv[0]), file=sys.stderr)
-        exit()
-
-    app.run(host=sys.argv[1], port=sys.argv[2])
