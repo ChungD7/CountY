@@ -1,4 +1,4 @@
-import psycopg2
+import MySQLdb
 import getpass
 import math
 
@@ -10,7 +10,10 @@ class DataSource:
     """
 
     def __init__(self):
-        self.connection = psycopg2.connect("dbname='leee2' user='leee2' password = 'market973tiger' host = 'localhost'")
+        self.connection = MySQLdb.connect(host="edwardlee.mysql.pythonanywhere-services.com",
+                     user="edwardlee",
+                     passwd="mahjames",
+                     db="edwardlee$electiondata")
         self.cur = self.connection.cursor()
 
     def getListOfStates(self):
@@ -18,7 +21,6 @@ class DataSource:
             Returns a list of al the states in the database
             PARAMETERS:
                 none
-
             RETURN:
                 a list of all states
         """
@@ -33,7 +35,6 @@ class DataSource:
             PARAMETERS:
                 county
                 state
-
             RETURN:
                 an int of the number of total votes casted in this county
         """
@@ -49,7 +50,6 @@ class DataSource:
             Returns the number of total votes casted in specified state.
             PARAMETERS:
                 state
-
             RETURN:
                 an int of the number of total votes casted in this state
         """
@@ -63,7 +63,6 @@ class DataSource:
             Returns the number of total votes casted nationwide.
             PARAMETERS:
                 none
-
             RETURN:
                 an int of the number of total votes casted nationwide
         """
@@ -77,7 +76,6 @@ class DataSource:
             Returns a list of the counties that make up the specified state.
             PARAMETERS:
                 state
-
             RETURN:
                 a list of all of the counties that make up this state
         """
@@ -141,13 +139,11 @@ class DataSource:
         """
             Returns a list of all of the counties in the specified state in which the specified party percentage resides within the specified starting
              and ending percentages (inclusive). If state is not entered, the function searches from all the counties in the country.
-
             PARAMETERS:
                 start - the low bound of the party percentage range
                 end - the high bound of the party percentage range
                 party
                 state
-
             RETURN:
                 a list of all of the counties in the state with the specified party percentage in the specified range.
         """
@@ -174,7 +170,6 @@ class DataSource:
             PARAMETERS:
                 start - the low bound of the party percentage range
                 end - the high bound of the party percentage range
-
             RETURN:
                 a list of all of the states with the largest party percentage in the specified range.
         """
