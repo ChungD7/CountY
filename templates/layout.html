@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="shortcut icon" type="image/jpg" href="{{url_for('static', filename='bald-eagle-clip-art-8.jpg')}}"/>
+    <link rel="stylesheet" href="{{url_for('static', filename='csshomepage.css')}}" />
+</head>
+<body>
+    <a href="{{ url_for('homePage') }}">
+  	  <h1>2016 Presidential Election</h1>
+    </a>
+    {% set url = request.path.split('/') %}
+    <h2>{{ url[2] if url[1] == 'search' else "A Closer Look" }}</h2>
+
+    <nav class="navbar" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://github.com/cs257-00-w20/web-project-team_e">
+          <img src="{{url_for('static', filename='bald-eagle-clip-art-8.jpg')}}" alt="SITE ID">
+        </a>
+      </div>
+
+      <label class="navbar-burger burger" for="nav-toggle-state">
+        <span></span><span></span><span></span>
+      </label>
+      <input type="checkbox" id="nav-toggle-state" />
+
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="{{ url_for('homePage') }}">Home</a>
+          <a class="navbar-item" href="{{ url_for('aboutPage') }}">About Data</a>
+          <a class="navbar-item" href="{{ url_for('results') }}">Nationwide Results</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+
+  <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer">
+    <div class="w3-row-padding">
+
+      <div class="{{ 'w3-col s4' if request.path == '/' else 'w3-col s6' }}">
+        <h4>Already Have An Account?</h4>
+        <a href="javascript:void(0)" onclick="document.getElementById('newsletter').style.display='block'">Register Here</a>
+        <form action="http://cdc.gov">
+          <p><input class="w3-input w3-border" type="text" placeholder="ID or Email" name="ID or Email" required></p>
+          <p><input class="w3-input w3-border" type="text" placeholder="Password" name="Password" required></p>
+          <button type="submit" class="w3-button w3-block w3-black">Log In</button>
+        </form>
+      </div>
+
+      <div class="{{ 'w3-col s4' if request.path == '/' else 'w3-col s6' }}">
+        <h4>The 2016 Election: A Closer Look</h4>
+        <p><a href="{{ url_for('homePage') }}"><u>Home</u></a></p>
+        <p><a href="{{ url_for('aboutPage') }}"><u>About the Data</u></a></p>
+        <p><a href="{{ url_for('results') }}"><u>Nationwide Results</u></a></p>
+      </div>
+
+      {% if request.path == "/" %}
+        <div class="w3-col s4">
+          <p>The interactive map shown is subdivided into clickable state regions, which redirects to a results page
+            displaying corresponding information on the 2016 voter results for the particular state selected. The Search Boxes on the right
+            prompt the user for entries in the form of a dropdown menu, and user inputted start and end
+            indices. A redirect will follow, and the results page compiles a list of the regions in which the specified
+            party’s vote percentage lies within the specified indices.</p>
+        </div>
+      {% endif %}
+    </div>
+
+    <div id="newsletter" class="w3-modal">
+      <div class="w3-modal-content w3-animate-zoom" id="wpadding">
+        <i onclick="document.getElementById('newsletter').style.display='none'" class="button is-rounded is-danger is-small " id="right">×</i>
+        <div class="w3-container w3-white w3-center">
+          <h3 class="title is-3">Register</h3>
+          <p>Join our data community to receive updates on new data uploads and changes.</p>
+          <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
+          <button type="button" class="w3-button w3-padding-large w3-red w3-margin-bottom" onclick="alert('Accounts have not implemented. We appreciate your interest.'); document.getElementById('newsletter').style.display='none'">Register</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
+

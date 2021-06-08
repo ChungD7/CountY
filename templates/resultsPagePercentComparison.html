@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<link rel="stylesheet" href="{{url_for('static', filename='infopage.css')}}" />
+
+<div class="data-intro">
+  <p>The following information below depicts data collected from {{ total_votes }} votes.</p>
+</div>
+
+<table>
+  <tr>
+    <th>{{ request.path.split('/')[request.path.split('/')|length - 2] }}</th>
+    <th>Clinton</th>
+    <th>Trump</th>
+    <th>Johnson</th>
+    <th>Other</th>
+  </tr>
+  <tr>
+    <td><strong>Unweighted Frequency</strong></td>
+    <td>{{dem_votes}}</td>
+    <td>{{rep_votes}}</td>
+    <td>{{third_votes}}</td>
+    <td>{{other_votes}}</td>
+  </tr>
+  <tr>
+    <td><strong>Relative Percentage</strong></td>
+    <td>{{dem_percent}}</td>
+    <td>{{rep_percent}}</td>
+    <td>{{third_percent}}</td>
+    <td>{{other_percent}}</td>
+  </tr>
+</table>
+
+
+{% if (request.path != "/results")  %}
+
+<div class="data-intro tile is-child is-notification">
+  <p>Navigate to additional information on a county in {{ request.path.split('/')[2] }}.</p>
+  <select name="county"
+      {% if (request.path.split('/')|length < 5) %}
+          onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">>
+      {% else %}
+          onchange="this.options[this.selectedIndex].value && (window.location = '../'+this.options[this.selectedIndex].value);">>
+      {% endif %}
+  <option>Select</option>
+    {% for county in counties %}
+    <option>{{county}}</option>
+    {% endfor %}
+  </select>
+</div>
+
+{% endif %}
+
+{% endblock %}

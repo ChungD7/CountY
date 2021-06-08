@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<body>
+<section class="section">
+    <div class="container">
+        <h3 class="title">Our Data</h3>
+        <p class="subtitle" id="override">
+            We source our data from the University of Michigan's <a
+                href="https://www.icpsr.umich.edu/icpsrweb/ICPSR/studies/36853">ICPSR</a> (Inter-university Consortium
+            for Political and Social Research) database.
+            The data has been shared with the intention to be used for instructional purposes, and remains such for this
+            project.
+        </p>
+        <p class="subtitle">
+            The dataset we chose details the 2016 presidential election and was led by the American Political Science
+            Association.
+            The data files are packaged by ICPSR in TSV and only the file-types were modified by us so that we're able
+            to serve the results to you on this site.
+        </p>
+        <p class="subtitle">
+            Limitations to this data may include the randomness of the sample set of some survey results included in our
+            site.
+            The scope of our offerings is also limited to only the 2016 US presidential election.
+            Our team offers purely recirculated data, and does not claim responsibility for any unwanted effects from
+            interpreting our statistics.
+        </p>
+        <p class="subtitle">
+            For the best possible experience with our software, we advise all users to periodically run CTRL+Shift+R to
+            refresh
+            any changes we make to our static files, including our stylesheets and map logic.
+        </p>
+    </div>
+</section>
+</body>
+{% endblock %}

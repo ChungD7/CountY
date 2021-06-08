@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="table-pres">
+    {% if display %}
+    <table class="table is-striped is-hoverable is-fullwidth">
+        <tr>
+            {% if request.path != "/outcome" %}
+            <th>County</th>
+            {% endif %}
+            <th>State</th>
+        </tr>
+        {% for row in result %}
+        <tr>
+            {% if request.path == "/outcome" %}
+            <td><a href="../search/{{row}}">{{row}}</a></td>
+            {% endif %}
+            {% if request.path != "/outcome" %}
+            <td><a href="../search/{{row[1]}}/{{row[0]}}/">{{row[0]}}</a></td>
+            <td><a href="../search/{{row[1]}}"></a>{{row[1]}}</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% else %}
+    <h4>{{ result[1] }}</h4>
+    <p><a href="{{ url_for('homePage') }}"><u>Click here to refine search.</u></a></p>
+    {% endif %}
+</div>
+{% endblock %}
