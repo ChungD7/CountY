@@ -7,87 +7,90 @@
 <article class="message is-info">
   <div class="message-header">
     <p>Welcome!</p>
-    <button class="delete" aria-label="delete" onclick="document.getElementsByClassName('message is-info')[0].style.display='none'"></button>
+    <button class="delete" aria-label="delete"
+      onclick="document.getElementsByClassName('message is-info')[0].style.display='none'"></button>
   </div>
   <div class="message-body">
-    Interactive Map below is clickable by state and opens a new tab of voter results of that state. <strong>  Search </strong>
-    boxes can be used to determine regions that voted for a particular candidate within a percentile specified by the user.
+    Interactive Map below is clickable by state and opens a new tab of voter results of that state. <strong> Search
+    </strong>
+    boxes can be used to determine regions that voted for a particular candidate within a percentile specified by the
+    user.
   </div>
 </article>
 
 <div class="level">
-    <figure id="map" class="level-item"></figure>
-    <span id="themforms" class="level-item">
+  <figure id="map" class="level-item"></figure>
+  <span id="themforms" class="level-item">
     <form action="{{ url_for('results') }}" method="POST" class="level-item">
-        <div class="advance-search">
-            <span class="desc">Search By County</span>
+      <div class="advance-search">
+        <span class="desc">Search By County</span>
 
-            <div class="row">
-                <div class="select">
-                    <select name="state">
-                        <option value="">State</option>
-                        {% for database in states %}
-                        <option> {{database}}</option>
+        <div class="row">
+          <div class="select">
+            <select name="state">
+              <option value="">State</option>
+              {% for database in states %}
+              <option> {{database}}</option>
               {% endfor %}
-              </select>
+            </select>
           </div>
-            <div class="select">
-              <select name="partyC" required>
-                <option value="">Party</option>
-                <option value="rep">Republican</option>
-                <option value="dem">Democratic</option>
-                <option value="third">Libertarian</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
+          <div class="select">
+            <select name="partyC" required>
+              <option value="">Party</option>
+              <option value="rep">Republican</option>
+              <option value="dem">Democratic</option>
+              <option value="third">Libertarian</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
         </div>
 
         <div class="row second">
           <input class="input" type="number" min="0" max="100" placeholder="Start Percentage" name="startC" step=".01"
-                 required>
-            <input class="input" type="number" min="0" max="100" placeholder="End Percentage" name="endC" step=".01"
-                   required>
+            required>
+          <input class="input" type="number" min="0" max="100" placeholder="End Percentage" name="endC" step=".01"
+            required>
         </div>
 
-            <div class="row third">
-                <div class="input-field">
-                    <button class="btn-delete" type="reset" id="delete">RESET</button>
-                    <button class="btn-search" type="submit">SEARCH</button>
-                </div>
-            </div>
+        <div class="row third">
+          <div class="input-field">
+            <button class="btn-delete" type="reset" id="delete">RESET</button>
+            <button class="btn-search" type="submit">SEARCH</button>
+          </div>
         </div>
+      </div>
     </form>
 
     <form action="{{ url_for('outcome') }}" method="POST" class="level-item">
-        <div class="advance-search">
+      <div class="advance-search">
         <span class="desc">Search By State</span>
         <div class="row">
-            <div class="select">
-                <select name="partyS" required>
-                    <option value="">Party</option>
-                    <option value="rep">Republican</option>
-                    <option value="dem">Democratic</option>
-                    <option value="third">Libertarian</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
+          <div class="select">
+            <select name="partyS" required>
+              <option value="">Party</option>
+              <option value="rep">Republican</option>
+              <option value="dem">Democratic</option>
+              <option value="third">Libertarian</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
         </div>
 
         <div class="row second">
-      <input class="input" type="number" min="0" max="100" placeholder="Start Percentage" name="startS" step=".01"
-             required>
-      <input class="input" type="number" min="0" max="100" placeholder="End Percentage" name="endS" step=".01"
-             required>
-    </div>
+          <input class="input" type="number" min="0" max="100" placeholder="Start Percentage" name="startS" step=".01"
+            required>
+          <input class="input" type="number" min="0" max="100" placeholder="End Percentage" name="endS" step=".01"
+            required>
+        </div>
 
-    <div class="row third">
-      <div class="input-field">
-        <button class="btn-delete" type="reset" id="delete">RESET</button>
-        <button class="btn-search" type="submit" align="right">SEARCH</button>
+        <div class="row third">
+          <div class="input-field">
+            <button class="btn-delete" type="reset" id="delete">RESET</button>
+            <button class="btn-search" type="submit" align="right">SEARCH</button>
+          </div>
+        </div>
       </div>
-    </div>
-    </div>
     </form>
-    </span>
+  </span>
 </div>
 {% endblock %}
