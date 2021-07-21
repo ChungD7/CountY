@@ -6,7 +6,6 @@
 import flask
 from flask import render_template, request
 import sys
-import psycopg2
 import math
 sys.path.append('backend')
 from datasource import *

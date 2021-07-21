@@ -187,5 +187,6 @@ class DataSource:
             return output
 
     def __del__(self):
-        self.cur.close()
-        self.connection.close()
+        if hasattr(self, 'cur'):
+            self.cur.close()
+            self.connection.close()
